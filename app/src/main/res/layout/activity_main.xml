@@ -32,8 +32,43 @@
         android:id="@+id/button_main_busy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="603dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Look Busy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_main_destruct" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_main_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="372dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_main_loadingText"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Almost done downloading all these viruses"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/button_main_destruct"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar_main_progress" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

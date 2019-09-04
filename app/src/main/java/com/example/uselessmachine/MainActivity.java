@@ -6,18 +6,25 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private Switch useless;
     private Button destruct;
     private Button lookBusy;
-    private ConstraintLayout constraintLayout;
+    private ProgressBar progressBar;
+    private TextView textView;
+    private int progress = 0;
+    private Handler handler = new Handler();
 
 
 
@@ -26,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//        textView.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
         wireWidgets();
         setListeners();
     }
@@ -65,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 new CountDownTimer(10000, 1000) {
 
                     public void onTick(long millisUntilFinished) {
-                        constraintLayout.setBackgroundColor(Color.rgb(255,0,0));
                         destruct.setText("seconds remaining: " + millisUntilFinished / 1000);
                     }
 
@@ -77,6 +84,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        lookBusy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                destruct.setVisibility(View.GONE);
+                useless.setVisibility(View.GONE);
+                lookBusy.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.VISIBLE);
+                progress = 0;
+                new CountDownTimer(10100, 100) {
+
+                    public void onTick(long millisUntilFinished) {
+                        progress += 1;
+                        progressBar.setProgress(progress);
+                        textView.setText(progress+"/"+progressBar.getMax());
+                    }
+
+                    public void onFinish() {
+                        destruct.setVisibility(View.VISIBLE);
+                        useless.setVisibility(View.VISIBLE);
+                        lookBusy.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        textView.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
+
+            }
+//            useless.setVisibility(View.GONE);
+//            destruct.setVisibility((View.GONE));
+//            lookBusy.setVisibility(View.GONE);
+        });
+
+
 
     }
 
@@ -84,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
         useless = findViewById(R.id.switch_main_useless);
         destruct = findViewById(R.id.button_main_destruct);
         lookBusy = findViewById(R.id.button_main_busy);
-        constraintLayout = findViewById(R.id.constraint_layout_main);
+        progressBar = findViewById(R.id.progressBar_main_progress);
+        textView = findViewById(R.id.textView_main_loadingText);
     }
 
 }
